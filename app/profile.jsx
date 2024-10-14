@@ -1,18 +1,9 @@
 import React, { useState } from 'react';
 import { Image, View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import { tableData } from '../db/mockData';
 import { Table, Row, Rows } from 'react-native-table-component';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import HeaderComponent from '../components/header';
-
-const tableData = {
-    tableHead: ['Title', 'Value'],
-    tableData: [
-        ['Movie', '500'],
-        ['Snacks', '50'],
-        ['Lunch', '250']
-    ],
-};
 
 const ProfileScreen = () => {
 
