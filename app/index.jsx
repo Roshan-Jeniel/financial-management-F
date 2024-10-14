@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { SafeAreaView } from 'react-native-safe-area-context'
-import HeaderComponent from './header';
+import HeaderComponent from '../components/header';
 
 export default function Component() {
     const [amount, setAmount] = useState('');
