@@ -23,12 +23,12 @@ export default function Component() {
     return (
 
         <SafeAreaView style={{ flex: 1 }}>
-        <HeaderComponent />
+            <HeaderComponent />
 
             <View style={styles.wrapper}>
                 {/* Scrollable content */}
                 <ScrollView style={styles.container}>
-                    
+
 
                     <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
                         <Text style={styles.resetButtonText}>RESET</Text>
