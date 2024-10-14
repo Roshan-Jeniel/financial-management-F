@@ -3,7 +3,7 @@ import { Image, View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'rea
 import { Picker } from '@react-native-picker/picker';
 import { Table, Row, Rows } from 'react-native-table-component';
 import { SafeAreaView } from 'react-native-safe-area-context'
-import HeaderComponent from './header';
+import HeaderComponent from '../components/header';
 
 const tableData = {
     tableHead: ['Title', 'Value'],
@@ -27,7 +27,7 @@ const ProfileScreen = () => {
                     <View style={{ alignItems: 'center' }}>
                         <Image
                             style={{ width: 100, height: 100 }}  // required Dimensions and styling of Image
-                            source={require('./images/avatar.png')} // enter your avatar image path 
+                            source={require('../assets/images/avatar.png')} // enter your avatar image path 
                         />
                         <Text style={styles.profileName}>Monkey D Luffy</Text>
                     </View>

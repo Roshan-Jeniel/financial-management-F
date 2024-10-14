@@ -1,6 +1,6 @@
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import HeaderComponent from './header';
+import HeaderComponent from '../components/header';
 
 const groupData = [
     { id: '1', title: 'GROUP 1', description: 'Description for GROUP 1' },

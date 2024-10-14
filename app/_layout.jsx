@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { Slot } from 'expo-router'
-import NavbarComponent from './navbar'
+import NavbarComponent from '../components/navbar'
 
 
 const _layout = () => {
