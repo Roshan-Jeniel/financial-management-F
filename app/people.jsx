@@ -1,27 +1,19 @@
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import HeaderComponent from '../components/header';
+import {groupData, peopleData} from "../db/mockData"
 
-const groupData = [
-    { id: '1', title: 'GROUP 1', description: 'Description for GROUP 1' },
-    { id: '2', title: 'GROUP 2', description: 'Default sub text' },
-    // { id: '3', title: 'GROUP 3', description: 'Default sub text' },
-    // { id: '4', title: 'GROUP 4', description: 'Default sub text' }
-];
 
-const peopleData = [
-    { id: '1', title: 'PERSON 1', description: 'Details about PERSON 1' },
-    { id: '2', title: 'PERSON 1', description: 'Additional information' },
-    { id: '3', title: 'PERSON 1', description: 'Additional information' },
-    // { id: '4', title: 'PERSON 1', description: 'Details about PERSON 1' },
-    // { id: '5', title: 'PERSON 1', description: 'Additional information' },
-    // { id: '6', title: 'PERSON 1', description: 'Additional information' },
-];
-
-const renderItem = ({ item }) => (
+const renderGroup = ({ item }) => (
     <TouchableOpacity style={styles.box}>
         <Text style={styles.boxTitle}>{item.title}</Text>
         <Text style={styles.boxDescription}>{item.description}</Text>
+    </TouchableOpacity>
+);
+
+const renderPeople = ({ item }) => (
+    <TouchableOpacity style={styles.box}>
+        <Text style={styles.boxTitle}>{item.name}</Text>
     </TouchableOpacity>
 );
 
@@ -40,7 +32,7 @@ const PeopleScreen = () => {
                 {/* Scrollable Group List */}
                 <FlatList
                     data={groupData}
-                    renderItem={renderItem}
+                    renderItem={renderGroup}
                     keyExtractor={(item) => item.id}
                     contentContainerStyle={styles.GroupslistContainer}
                     initialNumToRender={3} // Render 3 items initially
@@ -58,7 +50,7 @@ const PeopleScreen = () => {
                 {/* Scrollable People List */}
                 <FlatList
                     data={peopleData}
-                    renderItem={renderItem}
+                    renderItem={renderPeople}
                     keyExtractor={(item) => item.id}
                     contentContainerStyle={styles.PeopleslistContainer}
                     scrollEnabled={true} // Allow scrolling
