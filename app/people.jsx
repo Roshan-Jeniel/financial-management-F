@@ -5,17 +5,17 @@ import HeaderComponent from './header';
 const groupData = [
     { id: '1', title: 'GROUP 1', description: 'Description for GROUP 1' },
     { id: '2', title: 'GROUP 2', description: 'Default sub text' },
-    { id: '3', title: 'GROUP 3', description: 'Default sub text' },
-    { id: '4', title: 'GROUP 4', description: 'Default sub text' }
+    // { id: '3', title: 'GROUP 3', description: 'Default sub text' },
+    // { id: '4', title: 'GROUP 4', description: 'Default sub text' }
 ];
 
 const peopleData = [
     { id: '1', title: 'PERSON 1', description: 'Details about PERSON 1' },
     { id: '2', title: 'PERSON 1', description: 'Additional information' },
     { id: '3', title: 'PERSON 1', description: 'Additional information' },
-    { id: '4', title: 'PERSON 1', description: 'Details about PERSON 1' },
-    { id: '5', title: 'PERSON 1', description: 'Additional information' },
-    { id: '6', title: 'PERSON 1', description: 'Additional information' },
+    // { id: '4', title: 'PERSON 1', description: 'Details about PERSON 1' },
+    // { id: '5', title: 'PERSON 1', description: 'Additional information' },
+    // { id: '6', title: 'PERSON 1', description: 'Additional information' },
 ];
 
 const renderItem = ({ item }) => (
