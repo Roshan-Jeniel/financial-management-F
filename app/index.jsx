@@ -4,6 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import HeaderComponent from '../components/header';
 import { groupData, peopleData } from '../db/mockData';
+import uuid from 'react-native-uuid'
 
 export default function ProfileScreen() {
     const [amount, setAmount] = useState('');
@@ -15,29 +16,51 @@ export default function ProfileScreen() {
         setAmount('');
         setGroup('');
         setComment('');
-        setPeopleSelections([]); // Reset people selections
+        setPeopleSelections([]);
     };
 
     const handleSubmit = () => {
-        // Handle form submission logic here
-        console.log('Submitted:', { amount, group, comment, peopleSelections });
+
+        if(validateData()) {
+            console.log('Submitted:', { amount, group, comment, peopleSelections });
+        }
+        
     };
+
+    const validateData = () => {
+        
+        let isValid = true
+
+        if(amount==="") {
+            alert("Please fill the Amount");
+            isValid = false
+        }
+        if(isValid && peopleSelections.find((people => people.id === ''))) {
+            alert("Update people selection")
+            isValid = false
+        }
+        if( isValid && peopleSelections.find((people => people.amount === ''))) {
+            alert("Fill amount for selected people")
+            isValid = false
+        }
+        return isValid
+    }
 
     const addPeopleSelection = () => {
         setPeopleSelections([...peopleSelections, { id: '', person: '', amount: '' }]);
     };
 
     const handlePersonChange = (selectedValue, index) => {
+        console.log(selectedValue,index)
         const updatedSelections = [...peopleSelections];
-        updatedSelections[index].value = selectedValue;
-        updatedSelections[index].person = peopleData[selectedValue].name
-        updatedSelections[index].id = peopleData[selectedValue].id
+        updatedSelections[index].person = peopleData[selectedValue-1].name
+        updatedSelections[index].id = peopleData[selectedValue-1].id
         setPeopleSelections(updatedSelections);
     };
 
     const handleAmountChange = (text, index) => {
         const updatedSelections = [...peopleSelections];
-        updatedSelections[index].amount = text; // Update amount based on the index
+        updatedSelections[index].amount = text; 
         setPeopleSelections(updatedSelections);
     };
 
@@ -93,7 +116,7 @@ export default function ProfileScreen() {
                         <View key={selection.id} style={styles.selectionContainer}>
                             <View style={styles.pickerContainer}>
                                 <Picker
-                                    selectedValue={selection.value}
+                                    selectedValue={selection.id}
                                     onValueChange={(itemValue) => handlePersonChange(itemValue, index)}
                                     style={styles.picker}
                                 >
