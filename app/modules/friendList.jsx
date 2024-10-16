@@ -3,7 +3,7 @@ import { StyleSheet, Text } from "react-native";
 import { peopleData } from "../../db/mockData";
 
 
-const friendList = (props) => {
+const FriendList = (props) => {
     const renderPeople = ({ item }) => (
         <TouchableOpacity style={styles.box}>
             <Text style={styles.boxTitle}>{item.name}</Text>
@@ -88,4 +88,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default friendList;
+export default FriendList;

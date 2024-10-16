@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import HeaderComponent from '../components/header';
 import { createStackNavigator } from '@react-navigation/stack';
 import MainPage from './modules/mainPage';
 
-export default function ProfileScreen() {
+export default function Index() {
 
     const Stack = createStackNavigator();
     return (

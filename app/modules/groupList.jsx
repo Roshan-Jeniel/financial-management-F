@@ -1,4 +1,4 @@
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { FlatList, GestureHandlerRootView, TouchableOpacity } from "react-native-gesture-handler";
 import { groupData } from "../../db/mockData";
 import { StyleSheet, Text } from "react-native";
 
