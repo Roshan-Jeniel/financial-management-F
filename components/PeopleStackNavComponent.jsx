@@ -18,9 +18,6 @@ export default function PeopleStackNavComponent() {
                 <Stack.Screen name="groupDetails" options={{ headerShown: false }}>
                     {(props) => <GroupDetails {...props} groupId={groupId} />}
                 </Stack.Screen>
-                {/* <Stack.Screen name="friendList" options={{ headerShown: false }}> 
-                    {(props) => <friendList {...props}  />}
-                </Stack.Screen> */}
             </Stack.Navigator>
         </SafeAreaView>
     );

@@ -8,7 +8,7 @@ import PeopleStackNavComponent from '../components/PeopleStackNavComponent';
 const PeopleScreen = () => {
 
     const Tab = createMaterialTopTabNavigator();
-    const [groupId, setGroupId] = useState(null); 
+    const [groupId, setGroupId] = useState(null);
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <HeaderComponent />
@@ -17,10 +17,7 @@ const PeopleScreen = () => {
                 <Tab.Screen name="Groups">
                     {(props) => <PeopleStackNavComponent {...props} setGroupId={setGroupId} />}
                 </Tab.Screen>
-                <Tab.Screen name="People">
-                    {(props) => <PeopleStackNavComponent {...props} />}
-                </Tab.Screen>
-                {/* <Tab.Screen name="People" component={friendList} /> */}
+                <Tab.Screen name="People" component={friendList} />
             </Tab.Navigator>
             {/* </NavigationContainer> */}
         </SafeAreaView>
