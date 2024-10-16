@@ -1,99 +1,110 @@
-import React, { useState } from 'react';
+
+import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import HeaderComponent from '../../components/header';
 import { groupData, peopleData } from '../../db/mockData';
 
-const MainPage = () => {
+export default function ProfileScreen() {
     const [amount, setAmount] = useState('');
     const [group, setGroup] = useState('');
     const [comment, setComment] = useState('');
     const [peopleSelections, setPeopleSelections] = useState([]);
-    console.log('In main page')
+    //Handling Reset button to clear all data
     const handleReset = () => {
         setAmount('');
         setGroup('');
         setComment('');
-        setPeopleSelections([]); // Reset people selections
+        setPeopleSelections([]);
     };
-
+    //Handling Submit button
     const handleSubmit = () => {
-        // Handle form submission logic here
-        console.log('Submitted:', { amount, group, comment, peopleSelections });
+        if(validateData()) {
+            console.log('Submitted:', { amount, group, comment, peopleSelections });
+            handleReset();
+        }
+        
     };
-
+    //Validating the data before submitting
+    const validateData = () => {
+        
+        let isValid = true
+        if(amount==="") {
+            alert("Please fill the Amount");
+            isValid = false
+        }
+        if(isValid && peopleSelections.find((people => people.person === ''))) {
+            alert("Update people selection")
+            isValid = false
+        }
+        if( isValid && peopleSelections.find((people => people.amount === ''))) {
+            alert("Fill amount for selected people")
+            isValid = false
+        }
+        return isValid
+    }
+    //Adding people section
     const addPeopleSelection = () => {
-        setPeopleSelections([...peopleSelections, { id: '', person: '', amount: '' }]);
+        setPeopleSelections(peopleList => [...peopleList, { id: Date.now, person: '', amount: '' }]);
     };
-
+    //Handling data once add people is inititated
     const handlePersonChange = (selectedValue, index) => {
         const updatedSelections = [...peopleSelections];
-        updatedSelections[index].value = selectedValue;
-        updatedSelections[index].person = peopleData[selectedValue].name
-        updatedSelections[index].id = peopleData[selectedValue].id
+        updatedSelections[index].person = peopleData[selectedValue-1].name
+        updatedSelections[index].id = peopleData[selectedValue-1].id
         setPeopleSelections(updatedSelections);
     };
-
+    //Handling amount once add people is initiated
     const handleAmountChange = (text, index) => {
         const updatedSelections = [...peopleSelections];
-        updatedSelections[index].amount = text; // Update amount based on the index
+        updatedSelections[index].amount = text; 
         setPeopleSelections(updatedSelections);
     };
-
     return (
-
-        // <SafeAreaView style={{ flex: 1 }}>
-
             <View style={styles.wrapper}>
+                {/* Scrollable content */}
+                <ScrollView style={styles.container}>
+                    <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
+                        <Text style={styles.resetButtonText}>RESET</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.label}>Amount</Text>
+                    <View style={styles.amountContainer}>
+                        <Text style={styles.dollarSign}>₹</Text>
+                        <TextInput
+                            style={styles.amountInput}
+                            value={amount}
+                            onChangeText={setAmount}
+                            keyboardType="numeric"
+                            placeholder="0.00"
+                        />
+                    </View>
+                    <Text style={styles.label}>Group</Text>
+                    <View style={styles.pickerContainer}>
+                        <Picker
+                            selectedValue={group}
+                            onValueChange={(itemValue) => setGroup(itemValue)}
+                            style={styles.picker}
+                        >
+                            {/* Render the groups dynamically */}
+                            <Picker.Item label="Select a group" value="" />
+                            {groupData.map((groupItem) => (
+                                <Picker.Item
+                                    key={groupItem.id}
+                                    label={groupItem.title}
+                                    value={groupItem.id}
+                                />
+                            ))}
+                        </Picker>
+                    </View>
+                    <View>
                 
-            <ScrollView style={styles.container}>
-                <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
-                    <Text style={styles.resetButtonText}>RESET</Text>
-                </TouchableOpacity>
-
-                <Text style={styles.label}>Amount</Text>
-                <View style={styles.amountContainer}>
-                    <Text style={styles.dollarSign}>₹</Text>
-                    <TextInput
-                        style={styles.amountInput}
-                        value={amount}
-                        onChangeText={setAmount}
-                        keyboardType="numeric"
-                        placeholder="0.00"
-                    />
-                </View>
-
-                <Text style={styles.label}>Group</Text>
-                <View style={styles.pickerContainer}>
-                    <Picker
-                        selectedValue={group}
-                        onValueChange={(itemValue) => setGroup(itemValue)}
-                        style={styles.picker}
-                    >
-                        {/* Render the groups dynamically */}
-                        <Picker.Item label="Select a group" value="" />
-                        {groupData.map((groupItem) => (
-                            <Picker.Item
-                                key={groupItem.id}
-                                label={groupItem.title}
-                                value={groupItem.id}
-                            />
-                        ))}
-                    </Picker>
-                </View>
-
-                <View>
-
                     <TouchableOpacity style={styles.addPeopleButton} onPress={addPeopleSelection}>
                         <Text style={styles.addPeopleButtonText}>+ Add People</Text>
                     </TouchableOpacity>
-
                     {peopleSelections.map((selection, index) => (
                         <View key={selection.id} style={styles.selectionContainer}>
                             <View style={styles.pickerContainer}>
                                 <Picker
-                                    selectedValue={selection.value}
+                                    selectedValue={selection.id}
                                     onValueChange={(itemValue) => handlePersonChange(itemValue, index)}
                                     style={styles.picker}
                                 >
@@ -108,34 +119,30 @@ const MainPage = () => {
                                 </Picker>
                             </View>
                             <TextInput
-                                placeholder="Enter amount"
+                                placeholder="Amount ₹"
                                 keyboardType="numeric"
                                 value={selection.amount}
                                 onChangeText={(text) => handleAmountChange(text, index)}
-                                style={styles.amountInput}
+                                style={styles.peopleAmountContainer}
                             />
                         </View>
                     ))}
-                </View>
-
-                <Text style={styles.label}>COMMENT</Text>
-                <TextInput
-                    style={styles.commentInput}
-                    value={comment}
-                    onChangeText={setComment}
-                    placeholder="Input Field"
-                    multiline
-                />
-
-                <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-                    <Text style={styles.submitButtonText}>SUBMIT</Text>
-                </TouchableOpacity>
-            </ScrollView>
+                    </View>
+                    <Text style={styles.label}>COMMENT</Text>
+                    <TextInput
+                        style={styles.commentInput}
+                        value={comment}
+                        onChangeText={setComment}
+                        placeholder="Input Field"
+                        multiline
+                    />
+                    <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+                        <Text style={styles.submitButtonText}>SUBMIT</Text>
+                    </TouchableOpacity>
+                </ScrollView>
             </View>
-        // </SafeAreaView>
     );
 }
-
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1, // Allows content to expand to fill available space
@@ -172,6 +179,16 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginBottom: 20,
     },
+    peopleAmountContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+        marginLeft: 2,
+        marginBottom: 20,
+        padding: 10
+    },
     dollarSign: {
         padding: 10,
     },
@@ -180,13 +197,16 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     pickerContainer: {
+        flex:4,
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 5,
         marginBottom: 20,
     },
     selectionContainer: {
-        marginBottom: 20, // Added margin for better spacing
+        flex: 1,
+        flexDirection: 'row',
+        marginBottom: 5, // Added margin for better spacing
     },
     picker: {
         height: 50,
@@ -222,5 +242,3 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
-
-export default MainPage;
