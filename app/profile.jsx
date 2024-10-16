@@ -4,66 +4,68 @@ import { tableData } from '../db/mockData';
 import { Table, Row, Rows } from 'react-native-table-component';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import HeaderComponent from '../components/header';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const ProfileScreen = () => {
 
     const [data, setData] = useState(tableData);
 
     return (
-
-        <SafeAreaView style={{ flex: 1 }}>
-            <HeaderComponent />
-            <View style={styles.wrapper}>
-                <ScrollView>
-                    <View style={{ alignItems: 'center' }}>
-                        <Image
-                            style={{ width: 100, height: 100 }}  // required Dimensions and styling of Image
-                            source={require('../assets/images/avatar.png')} // enter your avatar image path 
-                        />
-                        <Text style={styles.profileName}>Monkey D Luffy</Text>
-                    </View>
-
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 50, paddingTop: 30 }}>
-                        <View>
-                            <Text style={styles.textStyles}>CREDIT</Text>
-                            <Text style={styles.creditStyle}>+1500</Text>
-                        </View>
-
-                        <View>
-                            <Text style={styles.textStyles}>DEBIT</Text>
-                            <Text style={styles.debitStyle}>-200</Text>
-                        </View>
-                    </View>
-
-                    <View style={styles.container}>
-                        <Text style={styles.textStyles}>Last recent transaction :</Text>
-                        <Table borderStyle={{ borderWidth: 2, borderColor: 'black' }}>
-                            <Row
-                                data={data.tableHead}
-                                style={styles.head}
-                                textStyle={Array.isArray(styles.headText) ? StyleSheet.flatten(styles.headText) : styles.headText}
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1 }}>
+                <HeaderComponent />
+                <View style={styles.wrapper}>
+                    <ScrollView>
+                        <View style={{ alignItems: 'center' }}>
+                            <Image
+                                style={{ width: 100, height: 100 }}  // required Dimensions and styling of Image
+                                source={require('../assets/images/avatar.png')} // enter your avatar image path 
                             />
-                            <Rows
-                                data={data.tableData}
-                                textStyle={Array.isArray(styles.text) ? StyleSheet.flatten(styles.text) : styles.text}
-                            />
-                        </Table>
-
-                        <View style={{ paddingTop: 20 }} >
-                            <TouchableOpacity >
-                                <Text style={[styles.textStyles, styles.profileBtn]}>Profile Settings</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity >
-                                <Text style={[styles.textStyles, styles.profileBtn]}>Reset Account</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.profileName}>Monkey D Luffy</Text>
                         </View>
-                    </View>
+
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 50, paddingTop: 30 }}>
+                            <View>
+                                <Text style={styles.textStyles}>CREDIT</Text>
+                                <Text style={styles.creditStyle}>+1500</Text>
+                            </View>
+
+                            <View>
+                                <Text style={styles.textStyles}>DEBIT</Text>
+                                <Text style={styles.debitStyle}>-200</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.container}>
+                            <Text style={styles.textStyles}>Last recent transaction :</Text>
+                            <Table borderStyle={{ borderWidth: 2, borderColor: 'black' }}>
+                                <Row
+                                    data={data.tableHead}
+                                    style={styles.head}
+                                    textStyle={Array.isArray(styles.headText) ? StyleSheet.flatten(styles.headText) : styles.headText}
+                                />
+                                <Rows
+                                    data={data.tableData}
+                                    textStyle={Array.isArray(styles.text) ? StyleSheet.flatten(styles.text) : styles.text}
+                                />
+                            </Table>
+
+                            <View style={{ paddingTop: 20 }} >
+                                <TouchableOpacity >
+                                    <Text style={[styles.textStyles, styles.profileBtn]}>Profile Settings</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity >
+                                    <Text style={[styles.textStyles, styles.profileBtn]}>Reset Account</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
 
 
-                </ScrollView>
-            </View>
-        </SafeAreaView>
+                    </ScrollView>
+                </View>
+            </SafeAreaView>
+        </GestureHandlerRootView>
     );
 }
 

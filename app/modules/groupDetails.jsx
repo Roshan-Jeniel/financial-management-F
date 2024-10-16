@@ -1,15 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useRoute } from '@react-navigation/native';
-import { groupData } from '../db/mockData'; // Ensure this path is correct
+import { groupData } from '../../db/mockData'; // Ensure this path is correct
 
-const GroupDetails = () => {
-    const route = useRoute();
-    const { groupId } = route.params; // Get groupId from route params
-
+const GroupDetails = ({groupId}) => {
+    console.log('group details' + groupId)
     // Find the group details based on the groupId
     const groupDetails = groupData.find(group => group.id === groupId);
-
     if (!groupDetails) {
         return (
             <View style={styles.container}>
