@@ -1,9 +1,9 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import HeaderComponent from '../components/header';
+import HeaderComponent from '../../components/header';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import friendList from './modules/friendList';
+import friendList from './friendList';
 import { useState } from 'react';
-import PeopleStackNavComponent from '../components/PeopleStackNavComponent';
+import PeopleStackNavComponent from '../../components/PeopleStackNavComponent';
 
 const PeopleScreen = () => {
 
