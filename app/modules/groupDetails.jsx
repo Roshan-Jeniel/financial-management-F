@@ -5,7 +5,7 @@ import { groupData } from '../../db/mockData'; // Ensure this path is correct
 const GroupDetails = ({groupId}) => {
     console.log('group details' + groupId)
     // Find the group details based on the groupId
-    const groupDetails = groupData.find(group => group.id === groupId);
+    const groupDetails = groupData.find(group => group.groupId === groupId);
     if (!groupDetails) {
         return (
             <View style={styles.container}>
@@ -16,7 +16,7 @@ const GroupDetails = ({groupId}) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{groupDetails.title}</Text>
+            <Text style={styles.title}>{groupDetails.name}</Text>
             <Text>{groupDetails.description}</Text>
             {/* Add more details here */}
         </View>
