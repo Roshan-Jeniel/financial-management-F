@@ -11,8 +11,8 @@ const GroupList = ({navigation, setGroupId }) => {
     };
 
     const renderGroup = ({ item }) => (
-        <TouchableOpacity style={styles.box} onPress={() => handleGroupPress(item.id)}>
-            <Text style={styles.boxTitle}>{item.title}</Text>
+        <TouchableOpacity style={styles.box} onPress={() => handleGroupPress(item.groupId)}>
+            <Text style={styles.boxTitle}>{item.name}</Text>
         </TouchableOpacity>
     );
 
@@ -20,7 +20,7 @@ const GroupList = ({navigation, setGroupId }) => {
         <FlatList
             data={groupData}
             renderItem={renderGroup}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.groupId}
             contentContainerStyle={styles.GroupslistContainer}
             showsVerticalScrollIndicator={false}
             scrollEnabled={true} // Allow scrolling
