@@ -10,6 +10,7 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import { groupData, peopleData, categoryData } from "../../db/mockData";
 import { Checkbox, Colors } from "react-native-ui-lib";
+import uuid from 'react-native-uuid';
 
 export default function ProfileScreen() {
     const [amount, setAmount] = useState("");
@@ -18,6 +19,7 @@ export default function ProfileScreen() {
     const [peopleSelections, setPeopleSelections] = useState([]);
     const [splitEqualFlag, setSplitEqualFlag] = useState(false);
     const [category, setCategory] = useState('');
+    const [transactionId, setTransactionId] = useState(uuid.v4);
 
     // Handling Reset button to clear all data
     const handleReset = () => {
@@ -26,12 +28,13 @@ export default function ProfileScreen() {
         setComment("");
         setPeopleSelections([]);
         setSplitEqualFlag(false);
+        setTransactionId(uuid.v4);
     };
 
     // Handling Submit button
     const handleSubmit = () => {
         if (validateData()) {
-            console.log("Submitted:", { amount, comment, peopleSelections, splitEqualFlag });
+            console.log("Submitted:", { transactionId ,amount, comment, peopleSelections, splitEqualFlag });
             handleReset();
         }
     };
@@ -59,7 +62,7 @@ export default function ProfileScreen() {
         setPeopleSelections((peopleList) => {
             const updatedPeople = [
                 ...peopleList,
-                { id: Date.now(), name: "", amount: "" },
+                { id: Date.now(), name: "", amount: "" , groupId: []},
             ];
     
             // Automatically uncheck split equal flag when new people are added
@@ -80,7 +83,6 @@ export default function ProfileScreen() {
             updatedSelections[index].id = selectedPerson.id;
         }
     
-        console.log(updatedSelections);
         setPeopleSelections(updatedSelections);
     };
     
@@ -230,7 +232,8 @@ export default function ProfileScreen() {
                     placeholder="Input Field"
                     multiline
                 />
-                <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+                {/* NEEDS TO BE CHANGED TO PRESSABLE TAG */}
+                <TouchableOpacity style={styles.submitButton} onPress={handleSubmit} >
                     <Text style={styles.submitButtonText}>SUBMIT</Text>
                 </TouchableOpacity>
             </ScrollView>
